@@ -1,0 +1,141 @@
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <link rel="shortcut icon" href="img/i.ico" >
+
+    <title>CADASTRO DE ENDEREÇO</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/business-casual.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+	<SCRIPT src="js/jquery-1.5.2.min.js"></SCRIPT>
+	<SCRIPT src="js/jquery.maskedinput-1.3.min.js"></SCRIPT>
+        <SCRIPT src="js/validaçãoInputs.js"></SCRIPT>
+        <SCRIPT src="js/validaçãoEndereço.js"></SCRIPT>
+
+			
+</head>
+<style>
+table, th, td {
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;    
+}
+</style>
+<body>
+    <div class="brand">Vende+</div>
+    <div class="address-bar">Aqui você vende muito mais!</div>
+</script>
+    <!-- Navigation -->
+    <div class="container">
+        <div class="box" align="center" >
+            <hr>
+                <h2 class="intro-text text-center">CADASTRO DE ENDEREÇO</h2>
+            <hr>
+            
+            <form role="form" action="cadastrarEndereco" method="POST" >
+            <table width=40%>
+                <tbody>
+                    <tr>
+                        <td width=10%><label for="cep">CEP:</label>
+                        <td width=25%><input size="10" maxlength="9" type="text" name="cep" onblur="pesquisacep(this.value);" id="cep" cep required >
+                        <td width=10%><label for="numero">Numero:</label></td>
+                        <td><input size="4" type="text" name="numero" id="numero" numero required></td>
+
+
+                    </tr>
+                    <tr>
+                        <td colspan="1"><label for="rua">Rua:</label></td>
+                        <td colspan="5"><input size="54" type="text" name="rua" id="rua" rua required></td>
+
+                    </tr>
+                    <tr>
+                        <td><label for="cidade">Cidade:</label></td>
+                        <td><input size="20" type="text" name="cidade" id="cidade"  cidade required></td>
+                        <td><label for="uf">Estado </label></td>
+                        <td><select type="text" name="uf" id="uf" uf required/> 
+                                <option value=""></option>
+                                <option value="AC">Acre</option> 
+                                <option value="AL">Alagoas</option> 
+                                <option value="AM">Amazonas</option> 
+                                <option value="AP">Amapá</option> 
+                                <option value="BA">Bahia</option> 
+                                <option value="CE">Ceará</option> 
+                                <option value="DF">Distrito Federal</option> 
+                                <option value="ES">Espírito Santo</option> 
+                                <option value="GO">Goiás</option> 
+                                <option value="MA">Maranhão</option> 
+                                <option value="MT">Mato Grosso</option> 
+                                <option value="MS">Mato Grosso do Sul</option> 
+                                <option value="MG">Minas Gerais</option> 
+                                <option value="PA">Pará</option> 
+                                <option value="PB">Paraíba</option> 
+                                <option value="PR">Paraná</option> 
+                                <option value="PE">Pernambuco</option> 
+                                <option value="PI">Piauí</option> 
+                                <option value="RJ">Rio de Janeiro</option> 
+                                <option value="RN">Rio Grande do Norte</option> 
+                                <option value="RO">Rondônia</option> 
+                                <option value="RS">Rio Grande do Sul</option> 
+                                <option value="RR">Roraima</option> 
+                                <option value="SC">Santa Catarina</option> 
+                                <option value="SE">Sergipe</option> 
+                                <option value="SP">São Paulo</option> 
+                                <option value="TO">Tocantins</option> 
+                            </select>
+                        </td>
+                        
+                    </tr>
+                    <tr>    
+                        <td><label for="complemento">Complemento:</label></td>
+                        <td><input size="20 "type="text" name="complemento"></td>
+                        <td><label for="bairro">Bairro:</label></td>
+                        <td><input size="18" type="text" name="bairro" id="bairro" bairro required></td>
+                    </tr>
+                </tbody>
+                </table>
+                                    
+                <br>
+                <input type="submit" class="btn btn-login" value="Cadastrar">
+                <input type="reset" class="btn btn-login" value="Limpar">
+            </form>    
+        </div>
+    </div>
+
+
+    
+
+    <!-- /.container -->
+
+    <footer>
+        <div class="container">
+            <div class="col-lg-12 text-center">
+                <p>Copyright © VendeMais 2016</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
