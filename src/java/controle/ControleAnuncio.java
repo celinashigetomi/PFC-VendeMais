@@ -76,8 +76,9 @@ public class ControleAnuncio extends HttpServlet {
         String categoria = request.getParameter("categoria");
         String subcategoria = request.getParameter("subcategoria");
         
-        Usuario u = new Vendedor();
-        u.setId(1);
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();        
+        Usuario us = new Vendedor();
+        us.setId(u.getId());
         
         Anuncio a = new Anuncio();
         a.setTitulo(titulo);
@@ -92,7 +93,7 @@ public class ControleAnuncio extends HttpServlet {
         a.setSubcategoria(subcategoria);
         a.setStatus("aberto");
         a.setData_cadastro(new Date(System.currentTimeMillis()));
-        a.setVendedor(u.getId());
+        a.setVendedor(us.getId());
 
         AnuncioDAO dao = new AnuncioDAO();
         dao.cadastrar(a);
@@ -113,7 +114,7 @@ public class ControleAnuncio extends HttpServlet {
         String categoria = request.getParameter("categoria");
         String subcategoria = request.getParameter("subcategoria");
         int id = Integer.parseInt(request.getParameter("idAnuncio"));
-    
+        
         Anuncio a = new Anuncio();
         a.setTitulo(titulo);
         a.setDescricao(descricao);
@@ -126,10 +127,7 @@ public class ControleAnuncio extends HttpServlet {
         a.setCategoria(categoria);
         a.setSubcategoria(subcategoria);
         a.setId(id);
-                
-        Usuario u = new Usuario();
-        u.setId(1);
-        
+      
         AnuncioDAO dao = new AnuncioDAO();
 
         dao.alterar(a);
@@ -150,10 +148,11 @@ public class ControleAnuncio extends HttpServlet {
         String categoria = request.getParameter("categoria");
         String subcategoria = request.getParameter("subcategoria");
         int id = Integer.parseInt(request.getParameter("idAnuncio"));
-    
-        Usuario u = new Usuario();
-        u.setId(1);
         
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();        
+        Usuario us = new Vendedor();
+        us.setId(u.getId());
+               
         Anuncio a = new Anuncio();
         a.setId(id);
         a.setTitulo(titulo);
@@ -166,7 +165,7 @@ public class ControleAnuncio extends HttpServlet {
         a.setLargura(largura);
         a.setCategoria(categoria);
         a.setSubcategoria(subcategoria);
-        a.setVendedor(u.getId());
+        a.setVendedor(us.getId());
                 
         AnuncioDAO dao = new AnuncioDAO();
         
@@ -186,17 +185,16 @@ public class ControleAnuncio extends HttpServlet {
         e.setId(id);
         dao.excluir(e);
         request.getRequestDispatcher("sucessoAnuncio.html").forward(request, response);
-
     }
 
     public void consultar(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException, SQLException, ServletException{
 
-        //int id = Integer.parseInt(request.getParameter("id"));
-        Usuario u = new Usuario();
-        u.setId(1);
-        
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();        
+        Usuario us = new Vendedor();
+        us.setId(u.getId());
+               
         Anuncio a = new Anuncio();
-        a.setVendedor(u.getId());
+        a.setVendedor(us.getId());
         
         AnuncioDAO edao = new AnuncioDAO();
         
