@@ -94,4 +94,34 @@ public class AnuncioDAO {
         con.close();
         return todosAnuncios;
     }   
+        public List<Anuncio> consultarTodosDisponiveis() throws ClassNotFoundException, SQLException{
+
+        Connection con = FabricaConexao.getConexao();
+        
+        PreparedStatement comando = con.prepareStatement("select * from anuncio where estado_anuncio = 'aberto'");
+
+        ResultSet resultado = comando.executeQuery();
+        
+        List<Anuncio> todosAnuncios = new ArrayList<>();
+        while (resultado.next()){
+            Anuncio a = new Anuncio();
+            a.setId(resultado.getInt("anuncio_id"));
+            a.setTitulo(resultado.getString("titulo"));
+            a.setDescricao(resultado.getString("descricao"));
+            a.setQuantidade(resultado.getInt("quantidade"));
+            a.setPreco(resultado.getDouble("preco"));
+            a.setEstado(resultado.getString("estado_produto"));
+            a.setPeso(resultado.getDouble("peso"));
+            a.setAltura(resultado.getDouble("altura"));
+            a.setLargura(resultado.getDouble("largura"));
+            a.setCategoria(resultado.getString("categoria"));
+            a.setSubcategoria(resultado.getString("subcategoria"));
+            a.setData_cadastro(resultado.getDate("data_cadastro"));
+            a.setVendedor(resultado.getInt("usuario_id"));
+            todosAnuncios.add(a);
+        }
+
+        con.close();
+        return todosAnuncios;
+    }
 }
