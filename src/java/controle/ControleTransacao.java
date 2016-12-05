@@ -14,7 +14,6 @@ import modelo.Anuncio;
 import modelo.Compra;
 import modelo.Comprador;
 import modelo.Usuario;
-import modelo.Vendedor;
 
 public class ControleTransacao extends HttpServlet {
 
@@ -73,11 +72,10 @@ public class ControleTransacao extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("idAnuncio"));
         int qtdDesejada = Integer.parseInt(request.getParameter("quantidadeDesejada"));
         int vendedor = Integer.parseInt(request.getParameter("vendedor"));
-        //int id = Integer.parseInt(request.getParameter("idConta"));
         
-        Usuario u = new Comprador();
-        //u.setId(id);
-        u.setId(2);
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();
+        Usuario us = new Comprador();
+        us.setId(u.getId());
         
         Anuncio a = new Anuncio();
         a.setId(id);
@@ -173,7 +171,9 @@ public class ControleTransacao extends HttpServlet {
         double total=Double.parseDouble(request.getParameter("total"));
         int vendedor = Integer.parseInt(request.getParameter("vendedor"));
         
-        //int idComprador = Integer.parseInt(request.getParameter("idConta"));
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();
+        Usuario us = new Comprador();
+        us.setId(u.getId());
         
         Anuncio a = new Anuncio();
         a.setId(id);
@@ -189,14 +189,10 @@ public class ControleTransacao extends HttpServlet {
         a.setSubcategoria(subcategoria);
         a.setVendedor(vendedor);
         
-        Comprador cc = new Comprador();
-        //cc.setId(idComprador);
-        cc.setId(2);
-        
         Compra c = new Compra();
         c.setAnuncio(a);
         c.setQuantidade(qtdDesejada);
-        c.setComprador(cc);
+        c.setComprador((Comprador) us);
         c.setData_compra(new Date(System.currentTimeMillis()));
         c.setTotal(total);
         c.gerarHistorico(c);
