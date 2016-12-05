@@ -23,7 +23,13 @@ public class ControleSessao extends HttpServlet {
                 response.sendRedirect("erroLogin.html");
                 Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if (uri.equals( request.getContextPath() + "/logout"  )) { 
+        }
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String uri = request.getRequestURI();
+        if (uri.equals( request.getContextPath() + "/logout"  )) { 
             try {
                 logout(request,response);
             } catch (ClassNotFoundException | SQLException ex) {
