@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import modelo.Endereco;
 import modelo.Usuario;
 
@@ -21,13 +20,7 @@ public class ControleUsuario extends HttpServlet {
         
         String uri = request.getRequestURI();
         
-        if (uri.equals( request.getContextPath() + "/consultarConta"  )) {   
-            try {
-                consultar(request,response);
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else  if (uri.equals( request.getContextPath() + "/excluir"  )) {
+        if (uri.equals( request.getContextPath() + "/excluir"  )) {
             try {
                 excluir(request,response);
             } catch (ClassNotFoundException | SQLException ex) {
@@ -59,11 +52,10 @@ public class ControleUsuario extends HttpServlet {
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if (uri.equals( request.getContextPath() + "/login"  )) {   
+        }else if (uri.equals( request.getContextPath() + "/consultarConta"  )) {   
             try {
-                login(request,response);
+                consultar(request,response);
             } catch (ClassNotFoundException | SQLException ex) {
-                response.sendRedirect("erroLogin.html");
                 Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -94,9 +86,10 @@ public class ControleUsuario extends HttpServlet {
 
         String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
-        
+        int id = Integer.parseInt(request.getParameter("idConta"));
+                
         Usuario u = new Usuario();
-        u.setId(1);
+        u.setId(id);
         u.setSenha(senha);
         u.setTelefone(telefone);
         
@@ -112,9 +105,10 @@ public class ControleUsuario extends HttpServlet {
 
         String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
-        
+        int id = Integer.parseInt(request.getParameter("idConta"));
+                
         Usuario u = new Usuario();
-        u.setId(1);
+        u.setId(id);
         u.setSenha(senha);
         u.setTelefone(telefone);
         
@@ -140,10 +134,11 @@ public class ControleUsuario extends HttpServlet {
 
     public void consultar(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException, SQLException, ServletException{
         
-        //inserir comando para pegar o id de usuario automaticamente da pagina sem precisar atribuir set em usuario id
-        
+        Usuario usuario = (Usuario)request.getAttribute("usuario");
+        int id = usuario.getId();
         Usuario u = new Usuario();
-        u.setId(1);
+        u.setId(id);
+        //u.setId(1);
         
         UsuarioDAO udao = new UsuarioDAO();
         udao.consultar(u);
@@ -157,38 +152,5 @@ public class ControleUsuario extends HttpServlet {
         request.setAttribute("resultado",u);
         request.setAttribute("resultadoE",todosEnderecos);
         request.getRequestDispatcher("consultaDados.jsp").forward(request, response);
-    }
-    
-    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException, SQLException, ServletException{
-        
-        String login = request.getParameter("usuario");
-        String senha = request.getParameter("senha");
-
-        Usuario usuario = new Usuario();
-        usuario.setEmail(login);
-        usuario.setSenha(senha);
-
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario usuarioAutenticado = usuarioDAO.validar(usuario);
-
-        HttpSession sessaoUsuario = request.getSession();
-        
-        if (usuarioAutenticado !=null){
-            sessaoUsuario.setAttribute("usuario",usuarioAutenticado);
-            sessaoUsuario.setMaxInactiveInterval(10);
-            request.getRequestDispatcher("home.html").forward(request, response);
-        }else{
-            sessaoUsuario.invalidate();
-            response.sendRedirect("erroLogin.html");
-        }
-    }
-    
-    public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException, SQLException, ServletException{
-        
-        HttpSession sessaoUsuario = request.getSession();
-        sessaoUsuario.invalidate();
-        response.sendRedirect("index.html");
-    
-    }
-    
+    }    
 }
