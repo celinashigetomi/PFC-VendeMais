@@ -32,6 +32,12 @@ public class ControleUsuario extends HttpServlet {
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else if (uri.equals( request.getContextPath() + "/consultarConta"  )) {   
+            try {
+                consultar(request,response);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -49,12 +55,6 @@ public class ControleUsuario extends HttpServlet {
         }else  if (uri.equals( request.getContextPath() + "/alterarConta"  )) {
             try {
                 alterar(request,response);
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else if (uri.equals( request.getContextPath() + "/consultarConta"  )) {   
-            try {
-                consultar(request,response);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ControleUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -86,10 +86,8 @@ public class ControleUsuario extends HttpServlet {
 
         String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
-        int id = Integer.parseInt(request.getParameter("idConta"));
-                
-        Usuario u = new Usuario();
-        u.setId(id);
+        
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();        
         u.setSenha(senha);
         u.setTelefone(telefone);
         
@@ -105,10 +103,8 @@ public class ControleUsuario extends HttpServlet {
 
         String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
-        int id = Integer.parseInt(request.getParameter("idConta"));
-                
-        Usuario u = new Usuario();
-        u.setId(id);
+        
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();        
         u.setSenha(senha);
         u.setTelefone(telefone);
         
@@ -134,11 +130,7 @@ public class ControleUsuario extends HttpServlet {
 
     public void consultar(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException, SQLException, ServletException{
         
-        Usuario usuario = (Usuario)request.getAttribute("usuario");
-        int id = usuario.getId();
-        Usuario u = new Usuario();
-        u.setId(id);
-        //u.setId(1);
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();
         
         UsuarioDAO udao = new UsuarioDAO();
         udao.consultar(u);
