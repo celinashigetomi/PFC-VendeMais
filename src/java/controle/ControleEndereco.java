@@ -69,10 +69,9 @@ public class ControleEndereco extends HttpServlet {
         String estado = request.getParameter("uf");
         String  numero = request.getParameter("numero");
         String rua = request.getParameter("rua");
-    
-        Usuario u = new Usuario();
-        u.setId(1);
         
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();        
+                
         Endereco e = new Endereco();
         e.setBairro(bairro);
         e.setCep(cep);
@@ -131,8 +130,7 @@ public class ControleEndereco extends HttpServlet {
         String  numero = request.getParameter("numero");
         String rua = request.getParameter("rua");
         
-        Usuario u = new Usuario();
-        u.setId(1);
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();        
         
         Endereco e= new Endereco();
         e.setId(id);
@@ -168,9 +166,8 @@ public class ControleEndereco extends HttpServlet {
     }
 
     public void consultar(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException, SQLException, ServletException{
-
-        Usuario u = new Usuario();
-        u.setId(1);
+        
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario"); u.getId();        
         
         Endereco e = new Endereco();
         e.setUsuario(u.getId());
